@@ -15,24 +15,24 @@ alias mv='mv -i'
 alias gag='git exec ag'
 
 # Update dotfiles
-dfu() {
-    (
-        cd ~/.dotfiles && git pull --ff-only && ./install -q
-    )
-}
+#dfu() {
+#    (
+#        cd ~/.dotfiles && git pull --ff-only && ./install -q
+#    )
+#}
 
 # Use pip without requiring virtualenv
-syspip() {
-    PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
+#syspip() {
+#    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+#}
 
-syspip2() {
-    PIP_REQUIRE_VIRTUALENV="" pip2 "$@"
-}
+#syspip2() {
+#    PIP_REQUIRE_VIRTUALENV="" pip2 "$@"
+#}
 
-syspip3() {
-    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
-}
+#syspip3() {
+#    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
+#}
 
 # cd to git root directory
 alias cdgr='cd "$(git root)"'
@@ -134,3 +134,10 @@ alias mirrorsite='wget -m -k -K -E -e robots=off'
 
 # Mirror stdout to stderr, useful for seeing data going through a pipe
 alias peek='tee >(cat 1>&2)'
+
+alias connect-lara='export ROS_MASTER_URI=http://192.168.2.13:11311 ;
+export ROS_IP=`ip route get 192.168.2.13 | awk '"'"'{print $5;
+exit}'"'"'` ; echo "ROS_MASTER_URI and ROS_IP set to " ; 
+printenv ROS_MASTER_URI ; printenv ROS_IP'
+
+
