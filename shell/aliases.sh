@@ -140,4 +140,4 @@ export ROS_IP=`ip route get 192.168.2.13 | awk '"'"'{print $5;
 exit}'"'"'` ; echo "ROS_MASTER_URI and ROS_IP set to " ; 
 printenv ROS_MASTER_URI ; printenv ROS_IP'
 
-
+alias git-log-all='git log --oneline --graph --decorate'
