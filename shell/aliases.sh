@@ -143,3 +143,8 @@ printenv ROS_MASTER_URI ; printenv ROS_IP'
 alias git-log-all='git log --oneline --graph --decorate'
 
 alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp docker'
+
+alias git-pull-submodules='git pull;
+git submodule update --init --recursive;
+git submodule update --remote --recursive;
+'
