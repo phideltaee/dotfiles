@@ -16,7 +16,7 @@ alias gag='git exec ag'
 # Update dotfiles
 dfu() {
    (
-       cd ~/git/dotfiles && git pull --ff-only && ./install -q
+       cd ~/git/dotfiles && git pull --ff-only && ./install.sh -q
    )
 }
 
