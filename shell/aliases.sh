@@ -5,7 +5,6 @@ alias grep='grep --color'
 # ls aliases
 alias ll='ls -lah'
 alias la='ls -A'
-alias l='ls'
 
 # Aliases to protect against overwriting
 alias cp='cp -i'
@@ -15,21 +14,13 @@ alias mv='mv -i'
 alias gag='git exec ag'
 
 # Update dotfiles
-#dfu() {
-#    (
-#        cd ~/.dotfiles && git pull --ff-only && ./install -q
-#    )
-#}
+dfu() {
+   (
+       cd ~/git/dotfiles && git pull --ff-only && ./install -q
+   )
+}
 
 # Use pip without requiring virtualenv
-#syspip() {
-#    PIP_REQUIRE_VIRTUALENV="" pip "$@"
-#}
-
-#syspip2() {
-#    PIP_REQUIRE_VIRTUALENV="" pip2 "$@"
-#}
-
 #syspip3() {
 #    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
 #}
@@ -93,58 +84,22 @@ nonascii() {
     LC_ALL=C grep -n '[^[:print:][:space:]]' "${1}"
 }
 
-# Fetch pull request
-
-fpr() {
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
-        echo "error: fpr must be executed from within a git repository"
-        return 1
-    fi
-    (
-        cdgr
-        if [ "$#" -eq 1 ]; then
-            local repo="${PWD##*/}"
-            local user="${1%%:*}"
-            local branch="${1#*:}"
-        elif [ "$#" -eq 2 ]; then
-            local repo="${PWD##*/}"
-            local user="${1}"
-            local branch="${2}"
-        elif [ "$#" -eq 3 ]; then
-            local repo="${1}"
-            local user="${2}"
-            local branch="${3}"
-        else
-            echo "Usage: fpr [repo] username branch"
-            return 1
-        fi
-
-        git fetch "git@github.com:${user}/${repo}" "${branch}:${user}/${branch}"
-    )
-}
-
-# Serve current directory
-
-serve() {
-    ruby -run -e httpd . -p "${1:-8080}"
-}
-
-# Mirror a website
-alias mirrorsite='wget -m -k -K -E -e robots=off'
-
-# Mirror stdout to stderr, useful for seeing data going through a pipe
-alias peek='tee >(cat 1>&2)'
-
+# Connect robot Lara5 to main master
 alias connect-lara='export ROS_MASTER_URI=http://192.168.2.13:11311 ;
 export ROS_IP=`ip route get 192.168.2.13 | awk '"'"'{print $5;
 exit}'"'"'` ; echo "ROS_MASTER_URI and ROS_IP set to " ; 
 printenv ROS_MASTER_URI ; printenv ROS_IP'
 
+# Useful Git aliases:
 alias git-log-all='git log --oneline --graph --decorate'
-
-alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp docker'
 
 alias git-pull-submodules='git pull;
 git submodule update --init --recursive;
 git submodule update --remote --recursive;
+git commit -am "pulled changes in submodules";
+git push;
 '
+
+# Enable sudo-less docker commands
+alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp docker'
+
