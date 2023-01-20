@@ -103,3 +103,5 @@ git push;
 # Enable sudo-less docker commands
 alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp docker'
 
+# Change keyboard layout to US
+alias us-keyboard="setxkbmap us"
