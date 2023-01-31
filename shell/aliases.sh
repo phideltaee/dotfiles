@@ -105,3 +105,6 @@ alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp 
 
 # Change keyboard layout to US
 alias us-keyboard="setxkbmap us"
+
+# Restart wifi network manager after sleep
+alias restart-wifi="sudo service network-manager restart"
