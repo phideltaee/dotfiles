@@ -47,10 +47,6 @@ if [ -f ~/.shell_private ]; then
     source ~/.shell_private
 fi
 
-# Initializing ros dependencies
-source /opt/ros/noetic/setup.zsh
-echo "successfully initialize ros, using zsh"
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/fidel/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -68,3 +64,4 @@ unset __conda_setup
 
 # Adding python path for dist packages to have access to catkin packages and others
 #export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist_packages
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"

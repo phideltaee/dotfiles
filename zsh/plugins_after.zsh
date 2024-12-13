@@ -33,5 +33,9 @@ fi
 # dircolors
 
 if [[ "$(tput colors)" == "256" ]]; then
-    eval $(dircolors =(cat ~/.shell/plugins/dircolors-solarized/dircolors.256dark ~/.shell/dircolors.extra))
+    temp_dircolors=$(mktemp)
+    cat ~/.shell/plugins/dircolors-solarized/dircolors.256dark ~/.shell/dircolors.extra > "$temp_dircolors"
+    eval "$(gdircolors -b "$temp_dircolors")"
+    rm -f "$temp_dircolors"
 fi
+
