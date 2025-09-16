@@ -4,12 +4,18 @@ Cross-platform shell configuration for macOS and Linux.
 
 ## Quick Setup
 
+
 1. **Clone and install:**
    ```bash
    git clone --recurse-submodules -j8 git://github.com/phideltaee/dotfiles.git
    cd dotfiles
    chmod +x install.sh
    ./install.sh
+   ```
+   
+   **Note:** If you get plugin errors, run:
+   ```bash
+   git submodule update --init --recursive
    ```
 
 2. **Install dependencies:**
