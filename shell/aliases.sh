@@ -1,6 +1,18 @@
 # Use colors in coreutils utilities output
-alias ls='ls --color=auto'
-alias grep='grep --color'
+# Platform-specific color options
+if is_macos; then
+    # macOS with GNU coreutils
+    alias ls='ls --color=auto'
+    alias grep='grep --color'
+elif is_linux; then
+    # Linux
+    alias ls='ls --color=auto'
+    alias grep='grep --color'
+else
+    # Fallback for other systems
+    alias ls='ls -G'  # macOS default colored ls
+    alias grep='grep'
+fi
 
 # ls aliases
 alias ll='ls -lah'
@@ -100,11 +112,15 @@ git commit -am "pulled changes in submodules";
 git push;
 '
 
-# Enable sudo-less docker commands
-alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp docker'
-
-# Change keyboard layout to US
-alias us-keyboard="setxkbmap us"
-
-# Restart wifi network manager after sleep
-alias restart-wifi="sudo service network-manager restart"
+# Platform-specific aliases
+if is_linux; then
+    # Linux-specific aliases
+    alias enable-docker='sudo groupadd docker; sudo gpasswd -a $USER docker; newgrp docker'
+    alias us-keyboard="setxkbmap us"
+    alias restart-wifi="sudo service network-manager restart"
+elif is_macos; then
+    # macOS-specific aliases
+    alias enable-docker='echo "Docker on macOS typically does not require sudo"'
+    alias us-keyboard='echo "Use System Preferences > Keyboard > Input Sources to change keyboard layout"'
+    alias restart-wifi="sudo ifconfig en0 down && sudo ifconfig en0 up"
+fi

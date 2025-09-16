@@ -1,9 +1,20 @@
 #!/bin/bash
 
-# The base directory incudes the git files location ex: "home/user/git/dotfiles"
+# The base directory includes the git files location ex: "home/user/git/dotfiles"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Platform detection
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    PLATFORM="macos"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    PLATFORM="linux"
+else
+    PLATFORM="unknown"
+fi
+
 echo "------------------------------------------------"
 echo "- Checking if file/dirs exist, overwriting -----"
+echo "- Platform detected: $PLATFORM"
 echo "------------------------------------------------"
 
 # vim 
@@ -20,7 +31,7 @@ fi
 if [[ -d ~/.vim ]]
 then 
     echo "DIR  CHANGE: replacing old .vim directory"
-    rm -r ~/.vim
+    rm -rf ~/.vim
     ln -s ${BASEDIR}/vim/ ~/.vim
 else 
     echo "NEW DIR: creating new .vim/ directory"
@@ -40,7 +51,7 @@ fi
 if [[ -d ~/.zsh ]]
 then 
     echo "DIR  CHANGE: replacing zsh dir"
-    rm -r ~/.zsh
+    rm -rf ~/.zsh
     ln -s ${BASEDIR}/zsh ~/.zsh
 else
     echo "NEW DIR: adding zsh directory"
@@ -63,7 +74,7 @@ fi
 if [[ -d ~/.bash ]]
 then 
     echo "DIR  CHANGE: replacing old bash directory"
-    rm -r ~/.bash
+    rm -rf ~/.bash
     ln -s ${BASEDIR}/bash/ ~/.bash
 else
     echo "NEW DIR: creating new bash directory"
@@ -84,7 +95,7 @@ fi
 if [[ -d ~/.shell ]]
 then 
     echo "DIR  CHANGE: replacing shell directory"
-    rm -r ~/.shell
+    rm -rf ~/.shell
     ln -s ${BASEDIR}/shell/ ~/.shell
 else
     echo "NEW DIR: creating shell directory"
@@ -93,3 +104,35 @@ fi
 
 echo "Successfully finished installing dot files"
 echo "To modify config files, modify source at ${BASEDIR}, and then run 'install.sh'"
+
+# Platform-specific setup instructions
+if [[ "$PLATFORM" == "macos" ]]; then
+    echo ""
+    echo "=========================================="
+    echo "macOS-specific setup instructions:"
+    echo "=========================================="
+    echo "1. Install Homebrew if not already installed:"
+    echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+    echo ""
+    echo "2. Install GNU coreutils:"
+    echo "   brew install coreutils"
+    echo ""
+    echo "3. Add GNU coreutils to PATH (already done in .zshrc):"
+    echo "   export PATH=\"/opt/homebrew/opt/coreutils/libexec/gnubin:\$PATH\""
+    echo ""
+    echo "4. For Apple Silicon Macs, the path is already configured."
+    echo "   For Intel Macs, you may need to adjust the path to:"
+    echo "   export PATH=\"/usr/local/opt/coreutils/libexec/gnubin:\$PATH\""
+    echo ""
+    echo "5. Restart your terminal or run: source ~/.zshrc"
+elif [[ "$PLATFORM" == "linux" ]]; then
+    echo ""
+    echo "=========================================="
+    echo "Linux-specific setup instructions:"
+    echo "=========================================="
+    echo "1. Install GNU coreutils (usually pre-installed):"
+    echo "   sudo apt-get install coreutils  # Ubuntu/Debian"
+    echo "   sudo yum install coreutils      # CentOS/RHEL"
+    echo ""
+    echo "2. Restart your terminal or run: source ~/.zshrc"
+fi

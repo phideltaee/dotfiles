@@ -49,19 +49,28 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/fidel/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/fidel/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/fidel/anaconda3/etc/profile.d/conda.sh"
+# Platform-aware conda initialization
+CONDA_PATH=$(get_conda_path)
+if [[ -n "$CONDA_PATH" ]]; then
+    __conda_setup="$('$CONDA_PATH/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-        export PATH="/home/fidel/anaconda3/bin:$PATH"
+        if [ -f "$CONDA_PATH/etc/profile.d/conda.sh" ]; then
+            . "$CONDA_PATH/etc/profile.d/conda.sh"
+        else
+            export PATH="$CONDA_PATH/bin:$PATH"
+        fi
     fi
+    unset __conda_setup
 fi
-unset __conda_setup
 # <<< conda initialize <<<
 
 # Adding python path for dist packages to have access to catkin packages and others
 #export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist_packages
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
+# Platform-aware coreutils path
+COREUTILS_PATH=$(get_coreutils_path)
+if [[ -n "$COREUTILS_PATH" ]]; then
+    export PATH="$COREUTILS_PATH:$PATH"
+fi

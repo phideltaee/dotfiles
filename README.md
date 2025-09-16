@@ -1,28 +1,53 @@
 # dotfiles
-All configuration dotfiles for phideltaee. Custom setup for 
-  "bash"
-  "git"
-  "zsh"
-  "vim"
 
+Cross-platform shell configuration for macOS and Linux.
 
-# Usage:
+## Quick Setup
 
-  1. Clone this repository using the following to recursively clone all submodules 
-    
-    `git clone --recurse-submodules -j8 git://github.com/phideltaee/dotfiles.git` 
+1. **Clone and install:**
+   ```bash
+   git clone --recurse-submodules -j8 git://github.com/phideltaee/dotfiles.git
+   cd dotfiles
+   chmod +x install.sh
+   ./install.sh
+   ```
 
-  2. Add run permissions to the install file: 
-  
-    `chmod +x ~/git/dotfiles/install.sh` 
-  
-  3. Install coreutils (using homebrew)
-  
-    `brew install coreutils`
+2. **Install dependencies:**
+   
+   **macOS:**
+   ```bash
+   brew install coreutils
+   ```
+   
+   **Linux:**
+   ```bash
+   sudo apt-get install coreutils  # Ubuntu/Debian
+   # or
+   sudo yum install coreutils      # CentOS/RHEL
+   ```
 
-  4. Add the dircolors to the file
-  
-    `echo 'export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshrc`
+3. **Restart terminal or run:**
+   ```bash
+   source ~/.zshrc
+   ```
 
+## What's Included
 
-  4. Run the install file (Warning, this will replace all your current configurations! Back up as necessary) `$>> ./install.sh`
+- **Shells:** Zsh and Bash configurations
+- **Editor:** Vim with plugins and Solarized theme
+- **Features:** Cross-platform support, syntax highlighting, vim-style navigation
+- **Auto-detection:** Conda paths, coreutils paths, platform-specific settings
+
+## Customization
+
+Add your personal settings to these files (not tracked in git):
+- `~/.shell_local_before` / `~/.shell_local_after`
+- `~/.zshrc_local_before` / `~/.zshrc_local_after`
+- `~/.bashrc_local_before` / `~/.bashrc_local_after`
+- `~/.shell_private`
+
+## Update
+
+```bash
+dfu  # Pulls updates and reinstalls
+```
